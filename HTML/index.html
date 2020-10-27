@@ -1,16 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    
     <meta charset="UTF-8">
     <title>Ballot</title>
+    <link rel="stylesheet" type="text/css" href="index.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Syne">
+
 </head>
 <body>
     <h1>
         Please Choose a Candidate
     </h1>
 
-    <form name="ballotSelection" action="/submit" method="POST">
-        <div>
+    <div className="mainBody">
+        <form name="ballotSelection" action="/submit" method="POST">
             <p>
                 <input type = "radio" value = "Craig Shoe" name = "candidates" id = "craig">
                 <label for="craig"> Craig Shoe </label><br>
@@ -28,10 +32,5 @@
 
 </body>
 
-<footer>
-    <br>
-    <br>
-    <br>
-    I would recommend averting your eyes - Sully
-</footer>
+
 </html>

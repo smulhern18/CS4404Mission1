@@ -1,5 +1,4 @@
 import mysql.connector as mysql_connector
-import os
 
 def init():
     db = mysql_connector.connect(
@@ -10,10 +9,15 @@ def init():
     )
 
     db.cursor().execute("CREATE TABLE IF NOT EXISTS votes ( "
+                            "voterId varchar(27) not null,"
                             "ipAddress varchar(16) not null,"
-                            " currentDate date not null,"
-                            " choice varchar(128) not null,"
-                        " primary key(ipAddress, currentDate))")
+                            "currentDate date not null,"
+                            "choice varchar(128) not null,"
+                        " primary key(voterId))")
+
+    db.cursor().execute("CREATE TABLE IF NOT EXISTS laceMachines "
+                        "(ipAddress varchar(16) not null, "
+                        "primary key(ipAddress))")
     return db
 
     if __name__ == "__main__":

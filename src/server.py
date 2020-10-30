@@ -1,7 +1,6 @@
 from flask import Flask, render_template, request
 import initializeDatabase
 import database
-import time
 
 global app, dbConnector
 app = Flask(__name__)
@@ -16,26 +15,30 @@ def submit():
     if request.method == "GET":
         return render_template('submitted.html')
     else:
-        if request.form["voterIdBox"] is None & request.form['candidates'] is None:
+        if request.form["voterIdBox"] == "":
             return render_template('missingInfo.html')
-        if database.vote_already_submitted(request.form['voterIdBox']):
+        if request.form["candidates"] is None:
+            return render_template('missingInfo.html')
+        if database.vote_already_submitted(request.form['voterIdBox']) == "yes":
             return render_template('alreadyVoted.html')
-        if database.check_if_lace_machine(request.remote_addr()):
+        print("please use another device next")
+        if database.check_if_not_lace_machine(request.environ['REMOTE_ADDR']) == "no":
             return render_template('useAnotherDevice.html')
         voterId = request.form["voterIdBox"]
-        if validateVoterId(voterId):
-            return
-        ipAddress = request.remote_addr
-        todayDate = time.strftime('%Y-%m-%d %H-%M-%S')
+        print("validating voterId next")
+        if validateVoterId(voterId) == "invalid":
+            return render_template('missingInfo.html')
+        ipAddress = request.environ['REMOTE_ADDR']
         choice = request.form["candidates"]
-        database.add_vote(voterId, ipAddress, todayDate, choice)
+        database.add_vote(voterId, ipAddress, choice)
         return render_template('submitted.html')
+
 
 def results():
     craigVotes, shaqVotes, jordanVotes = database.get_votes()
     return '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>Indescision 2020 ' \
-           'Results</title></head><body><li>Craig Shue: ' + str(craigVotes) + '</li><li>Land Shaq: ' + str(shaqVotes) + '</li><li>Air Jordan: ' \
-           + str(jordanVotes) + '</li></body></html>'
+           'Results</title></head><body><ul><li>Craig Shue: ' + str(craigVotes) + '</li><li>Land Shaq: ' + str(shaqVotes) + '</li><li>Air Jordan: ' \
+           + str(jordanVotes) + '</li></ul></body></html>'
 
 
 def create_app():
@@ -47,7 +50,7 @@ def create_app():
 def validateVoterId(voterId):
     if len(voterId) != 27:
         return "invalid"
-    if voterId.isnumeric(voterId):
+    if voterId.isnumeric():
         return "valid"
 
 

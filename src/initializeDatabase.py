@@ -11,7 +11,6 @@ def init():
     db.cursor().execute("CREATE TABLE IF NOT EXISTS votes ( "
                             "voterId varchar(27) not null,"
                             "ipAddress varchar(16) not null,"
-                            "currentDate date not null,"
                             "choice varchar(128) not null,"
                         " primary key(voterId))")
 

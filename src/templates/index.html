@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="UTF-8">
+    <title>Ballot</title>
+    <link rel="stylesheet" type="text/css" href="index.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Syne">
+
+</head>
+<body>
+    <h1>
+        Please Choose a Candidate
+    </h1>
+
+    <div className="mainBody">
+        <form name="ballotSelection" action="/submit" method="POST">
+            <p>
+                <input type = "radio" value = "Craig Shoe" name = "candidates" id = "craig">
+                <label for="craig"> Craig Shoe </label><br><br>
+                <input type = "radio" value = "Land Shaq" name = "candidates" id = "bill">
+                <label for="bill"> Land Shaq </label><br><br>
+                <input type = "radio" value = "Air Jordan" name = "candidates" id = "mittens">
+                <label for="mittens"> Air Jordan </label><br><br>
+                <input type = "password" value = "voterId" name = "voterIdBox" id = "voterIdBox"><br>
+                <input type = "submit" value = "Submit" name = "submitButton" id = "submit">
+            </p>
+        </form>
+    </div>
+
+    <div>
+    </div>
+
+</body>
+
+
+</html>
